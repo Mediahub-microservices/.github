@@ -44,14 +44,14 @@ Each repository has its **own lifecycle, CI pipeline, and maintainers**.
 
 # 👥 Team Structure
 
-| Member            | Role                    | Responsibility                               |
-| ----------------- | ----------------------- | -------------------------------------------- |
-| **Abdelmalek**    | Backend Dev             | Infrastructure, Gateway, Eureka, Security    |
-| **Abdellatif**    | Backend Dev             | User Service (Authentication, JWT, Profiles) |
-| **Fatimaezzahra** | Backend Dev             | Media Service (Video catalog, metadata)      |
-| **Asmae**         | Backend Dev             | Subscription Service (Plans, payment logic)  |
+| Member            | Responsibility                               |
+| ----------------- | ---------------------------------------------|
+| **Abdelmalek**    | Infrastructure, Gateway, Eureka, Security    |
+| **Abdellatif**    | User Service (Authentication, Gestion Roles) |
+| **Fatimaezzahra** | Media Service (Catalog, Recherche/Filtrage)  |
+| **Asmae**         | Subscription Service (Subscribe, status)     |
 
-Each engineer is the **guardian of their service repository**.
+Each dev is the **maintainer of their service repository**.
 
 ---
 
@@ -102,24 +102,22 @@ The **`mediahub-infra`** repository launches shared infrastructure.
 
 ### Services started via docker-compose
 
-* Eureka Server
-* PostgreSQL (3 instances)
-* PgAdmin
+* PostgreSQL (3 DB instances)
+* PgAdmin UI
 
 ### Databases
-
-| Service              | Database          |HostPort|
-| -------------------- | -------------------------- |
-| User Service         | `user_db`         |  5432  |
-| Media Service        | `media_db`        |  5433  |
-| Subscription Service | `subscription_db` |  5434  |  
+| Service              | Database          | HostPort|
+| -------------------- | ----------------- | ------  |
+| User Service         | `user_db`         |  5433   |
+| Media Service        | `media_db`        |  5434   |
+| Subscription Service | `subscription_db` |  5435   |
 
 ---
 
 ## Start the Local Network
 
 ```
-git clone https://github.com/MEDIAHUB/mediahub-infra
+git clone https://github.com/Mediahub-microservices/mediahub-infra
 cd mediahub-infra
 docker compose up -d
 ```
@@ -127,7 +125,7 @@ docker compose up -d
 This launches:
 
 * PostgreSQL databases
-* Adminer
+* PgAdmin
 * Shared Docker network
 
 Microservices then run **locally from the IDE**.
@@ -138,10 +136,11 @@ Microservices then run **locally from the IDE**.
 
 ### 1. Clone your service repository
 
-Example:
-
 ```
-git clone https://github.com/MEDIAHUB/mediahub-user-service
+git clone https://github.com/Mediahub-microservices/mediahub-user-service
+git clone https://github.com/Mediahub-microservices/mediahub-media-service
+git clone https://github.com/Mediahub-microservices/mediahub-subscription-service
+
 ```
 
 ### 2. Start infrastructure
@@ -156,7 +155,7 @@ docker compose up -d
 Start **in this order**:
 
 1. **Config Server**
-2. **Eureka Server**
+2. **Discovery Server(Eureka)**
 3. **API Gateway**
 4. **Your Microservice**
 
@@ -342,7 +341,7 @@ Process:
 
 ---
 
-# 📜 Team Engineering Rules (The Contract)
+# 📜 Team Rules
 
 ### 1 — No Hardcoded URLs
 
@@ -396,6 +395,7 @@ If someone is blocked on:
 * Infrastructure
 * Gateway
 * Config Server
+- **request help and communicate**
 
 ---
 
